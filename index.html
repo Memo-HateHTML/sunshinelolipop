@@ -135,6 +135,20 @@
         animation: spin 1s linear infinite;
         margin: 0 auto;
       }
+      .button-group {
+        display: flex;
+        gap: 15px;
+        margin-top: 20px;
+      }
+      .button-group button {
+        flex: 1;
+      }
+      .reset-button {
+        background-color: #6c757d;
+      }
+      .reset-button:hover {
+        background-color: #5a6268;
+      }
       @keyframes spin {
         0% {
           transform: rotate(0deg);
@@ -335,6 +349,11 @@
           <span id="displayDepartureTime"></span>
         </p>
         <p><strong>Remarks:</strong> <span id="displayRemarks"></span></p>
+
+        <div class="button-group">
+          <button id="resetButton" class="reset-button">Reset Form</button>
+          <button id="newPlanButton">New Flight Plan</button>
+        </div>
       </div>
     </div>
 
@@ -366,6 +385,23 @@
       const app = initializeApp(firebaseConfig);
       const analytics = getAnalytics(app);
       const db = getDatabase(app);
+
+      // Reset form function
+      function resetForm() {
+        document.getElementById("flightPlanForm").reset();
+        document.getElementById("submittedPlan").style.display = "none";
+        document.getElementById("successMessage").style.display = "none";
+        document.getElementById("errorMessage").style.display = "none";
+        document.getElementById("ifr").checked = true;
+      }
+
+      // Add event listeners for reset buttons
+      document
+        .getElementById("resetButton")
+        .addEventListener("click", resetForm);
+      document
+        .getElementById("newPlanButton")
+        .addEventListener("click", resetForm);
 
       // Form submission
       document
